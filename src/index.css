@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 52 73% 97%;
+  --foreground: 158 30% 19%;
+  --card: 0 0% 100%;
+  --card-foreground: 158 30% 19%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 158 30% 19%;
+  --primary: 160 43% 31%;
+  --primary-foreground: 60 56% 98%;
+  --secondary: 53 100% 82%;
+  --secondary-foreground: 158 30% 19%;
+  --muted: 53 60% 90%;
+  --muted-foreground: 158 16% 36%;
+  --accent: 53 80% 88%;
+  --accent-foreground: 158 30% 19%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 152 20% 83%;
+  --input: 152 20% 83%;
+  --ring: 160 43% 31%;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 15% 18%, hsl(var(--secondary) / 0.44) 0%, transparent 38%),
+      radial-gradient(circle at 88% 10%, hsl(var(--primary) / 0.20) 0%, transparent 32%),
+      linear-gradient(165deg, hsl(var(--background)) 0%, hsl(53 50% 96%) 100%);
+    font-family: 'Manrope', system-ui, sans-serif;
+    min-height: 100svh;
+  }
+}
+
+@layer utilities {
+  .hero-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--primary) / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--primary) / 0.08) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: radial-gradient(circle at 50% 25%, black 30%, transparent 75%);
+  }
+
+  .hero-spotlight {
+    background:
+      radial-gradient(circle at 28% 32%, hsl(var(--primary) / 0.22) 0%, transparent 35%),
+      radial-gradient(circle at 76% 30%, hsl(var(--secondary) / 0.55) 0%, transparent 30%);
+  }
+}
+
+#root {
+  min-height: 100svh;
+}

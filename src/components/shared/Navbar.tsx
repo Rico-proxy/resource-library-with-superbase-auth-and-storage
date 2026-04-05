@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { type User } from '@supabase/supabase-js'
-import { BookOpen, ChevronDown, UserRound } from 'lucide-react'
+import {
+  FiBookOpen,
+  FiChevronDown,
+  FiGrid,
+  FiHome,
+  FiLogIn,
+  FiLogOut,
+  FiUploadCloud,
+  FiUser,
+} from 'react-icons/fi'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { supabase } from '@/lib/supabase'
@@ -105,80 +114,110 @@ export function Navbar() {
       isActive ? 'border-primary font-semibold text-foreground' : 'text-muted-foreground',
     )
 
-  return (
-    <header className="top-0 z-20 sticky bg-background/80 backdrop-blur-xl border-border/60 border-b">
-      <div className="flex justify-between items-center mx-auto px-4 sm:px-6 lg:px-8 py-3 w-full max-w-6xl">
-        <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
-          <div className="flex justify-center items-center bg-primary shadow-sm rounded-xl w-9 h-9 text-primary-foreground">
-            <BookOpen className="w-4 h-4" />
-          </div>
-          <div>
-            <p className="font-semibold text-foreground text-sm lg:text-base leading-none">Resource Library</p>
-            <p className="text-muted-foreground text-xs">For Students</p>
-          </div>
-        </Link>
+  const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
+    cn(
+      'flex flex-col items-center gap-1 rounded-lg px-3 py-2 text-[11px] font-medium transition-colors',
+      isActive ? 'bg-primary/15 text-primary' : 'text-muted-foreground hover:text-foreground',
+    )
 
-        <nav className="hidden md:flex items-center gap-7 text-sm lg:text-base">
-          <NavLink to="/" end className={navLinkClass}>
+  return (
+    <>
+      <header className="top-0 z-20 sticky bg-background/80 backdrop-blur-xl border-border/60 border-b">
+        <div className="flex justify-between items-center mx-auto px-4 sm:px-6 lg:px-8 py-3 w-full max-w-6xl">
+          <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
+            <div className="flex justify-center items-center bg-primary shadow-sm rounded-xl w-9 h-9 text-primary-foreground">
+              <FiBookOpen className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="font-semibold text-foreground text-sm lg:text-base leading-none">Resource Library</p>
+              <p className="text-muted-foreground text-xs">For Students</p>
+            </div>
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-7 text-sm lg:text-base">
+            <NavLink to="/" end className={navLinkClass}>
+              Home
+            </NavLink>
+            <NavLink to="/resources" className={navLinkClass}>
+              Resources
+            </NavLink>
+            <NavLink to="/upload" className={navLinkClass}>
+              Upload
+            </NavLink>
+          </nav>
+
+          <div className="flex items-center gap-2">
+            {isAuthenticated ? (
+              <div ref={userMenuRef} className="relative">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsUserMenuOpen((open) => !open)}
+                  className="gap-2 border-primary/25 bg-background/85 hover:bg-accent/70"
+                >
+                  <FiUser className="w-4 h-4" />
+                  <span className="hidden sm:inline max-w-28 truncate">Hi, {userName}</span>
+                  <FiChevronDown
+                    className={cn(
+                      'hidden sm:inline w-4 h-4 transition-transform',
+                      isUserMenuOpen ? 'rotate-180' : '',
+                    )}
+                  />
+                </Button>
+
+                {isUserMenuOpen ? (
+                  <div className="top-full right-0 z-30 absolute bg-popover shadow-md mt-2 border border-border rounded-lg w-40 overflow-hidden">
+                    <button
+                      type="button"
+                      onClick={handleSignOut}
+                      className="flex items-center gap-2 hover:bg-accent px-3 py-2 w-full text-left text-popover-foreground text-sm transition-colors"
+                    >
+                      <FiLogOut className="w-4 h-4" />
+                      Logout
+                    </button>
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <NavLink to="/login" className="hidden sm:inline-flex">
+                <Button>Login</Button>
+              </NavLink>
+            )}
+          </div>
+        </div>
+      </header>
+
+      <nav className="md:hidden right-0 bottom-0 left-0 z-30 fixed bg-background/90 backdrop-blur-xl border-border/70 border-t">
+        <div className="gap-1 grid grid-cols-4 mx-auto px-3 py-2 w-full max-w-lg">
+          <NavLink to="/" end className={mobileNavLinkClass}>
+            <FiHome className="w-4 h-4" />
             Home
           </NavLink>
-          <NavLink to="/resources" className={navLinkClass}>
+          <NavLink to="/resources" className={mobileNavLinkClass}>
+            <FiGrid className="w-4 h-4" />
             Resources
           </NavLink>
-          <NavLink to="/upload" className={navLinkClass}>
+          <NavLink to="/upload" className={mobileNavLinkClass}>
+            <FiUploadCloud className="w-4 h-4" />
             Upload
           </NavLink>
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <NavLink to="/upload" className="md:hidden inline-flex">
-            <Button size="sm">Upload</Button>
-          </NavLink>
           {isAuthenticated ? (
-            <div ref={userMenuRef} className="hidden sm:block relative">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setIsUserMenuOpen((open) => !open)}
-                className="gap-2 border-primary/25 bg-background/85 hover:bg-accent/70"
-              >
-                <UserRound className="w-4 h-4" />
-                <span className="max-w-28 truncate">Hi, {userName}</span>
-                <ChevronDown className={cn('w-4 h-4 transition-transform', isUserMenuOpen ? 'rotate-180' : '')} />
-              </Button>
-
-              {isUserMenuOpen ? (
-                <div className="top-full right-0 z-30 absolute bg-popover shadow-md mt-2 border border-border rounded-lg w-36 overflow-hidden">
-                  <button
-                    type="button"
-                    onClick={handleSignOut}
-                    className="hover:bg-accent px-3 py-2 w-full text-left text-popover-foreground text-sm transition-colors"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : null}
-            </div>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="flex flex-col justify-center items-center gap-1 rounded-lg px-3 py-2 text-muted-foreground hover:text-foreground text-[11px] font-medium transition-colors"
+            >
+              <FiLogOut className="w-4 h-4" />
+              Logout
+            </button>
           ) : (
-            <NavLink to="/login" className="hidden sm:inline-flex">
-              <Button>Login</Button>
+            <NavLink to="/login" className={mobileNavLinkClass}>
+              <FiLogIn className="w-4 h-4" />
+              Login
             </NavLink>
           )}
         </div>
-      </div>
-      <div className="md:hidden border-border/60 border-t">
-        <div className="flex items-center gap-6 mx-auto px-4 sm:px-6 lg:px-8 py-2 w-full max-w-6xl text-sm">
-          <NavLink to="/" end className={navLinkClass}>
-            Home
-          </NavLink>
-          <NavLink to="/resources" className={navLinkClass}>
-            Resources
-          </NavLink>
-          <NavLink to="/upload" className={navLinkClass}>
-            Upload
-          </NavLink>
-        </div>
-      </div>
-    </header>
+      </nav>
+    </>
   )
 }

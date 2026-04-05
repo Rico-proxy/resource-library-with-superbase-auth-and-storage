@@ -44,19 +44,30 @@ export function ResourceDocumentCard({ document: resourceDoc }: ResourceDocument
   const handleDownloadClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation()
 
-    if (resourceDoc.downloadUrl) {
-      const anchor = window.document.createElement('a')
-      anchor.href = resourceDoc.downloadUrl
-      anchor.target = '_blank'
-      anchor.rel = 'noreferrer'
-      anchor.download = `${resourceDoc.title}.${resourceDoc.format.toLowerCase()}`
-      window.document.body.appendChild(anchor)
-      anchor.click()
-      anchor.remove()
+    const { data, error } = await supabase.auth.getSession()
+    if (error) {
+      toast.error(error.message)
       return
     }
 
-    await openDocument()
+    if (!data.session) {
+      navigate('/login#top')
+      return
+    }
+
+    if (!resourceDoc.downloadUrl) {
+      await openDocument()
+      return
+    }
+
+    const anchor = window.document.createElement('a')
+    anchor.href = resourceDoc.downloadUrl
+    anchor.target = '_blank'
+    anchor.rel = 'noreferrer'
+    anchor.download = `${resourceDoc.title}.${resourceDoc.format.toLowerCase()}`
+    window.document.body.appendChild(anchor)
+    anchor.click()
+    anchor.remove()
   }
 
   return (

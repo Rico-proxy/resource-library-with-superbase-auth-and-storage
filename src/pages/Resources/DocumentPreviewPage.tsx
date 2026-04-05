@@ -99,6 +99,23 @@ export function DocumentPreviewPage() {
       .slice(0, 8)
   }, [documentsByCategory, activeCategory, activeDocument, allDocuments])
 
+  const handleProtectedDownload = async (downloadUrl: string | null | undefined) => {
+    if (!downloadUrl) return
+
+    const { data, error } = await supabase.auth.getSession()
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+
+    if (!data.session) {
+      navigate('/login#top')
+      return
+    }
+
+    window.open(downloadUrl, '_blank', 'noopener,noreferrer')
+  }
+
   if (isAuthenticated === false) {
     return <Navigate to="/login#top" replace />
   }
@@ -136,12 +153,14 @@ export function DocumentPreviewPage() {
 
               <div className="gap-2 grid">
                 {activeDocument?.downloadUrl ? (
-                  <a href={activeDocument.downloadUrl} target="_blank" rel="noreferrer">
-                    <Button className="w-full">
-                      <Download className="mr-2 w-4 h-4" />
-                      Download
-                    </Button>
-                  </a>
+                  <Button
+                    className="w-full"
+                    type="button"
+                    onClick={() => void handleProtectedDownload(activeDocument.downloadUrl)}
+                  >
+                    <Download className="mr-2 w-4 h-4" />
+                    Download
+                  </Button>
                 ) : (
                   <Button disabled className="w-full">
                     <Download className="mr-2 w-4 h-4" />
@@ -159,12 +178,10 @@ export function DocumentPreviewPage() {
             <div className="flex sm:flex-row flex-col sm:justify-between sm:items-center gap-3 p-3 border-border/70 border-b">
               <div className="flex items-center gap-2">
                 {activeDocument?.downloadUrl ? (
-                  <a href={activeDocument.downloadUrl} target="_blank" rel="noreferrer">
-                    <Button size="sm">
-                      <Download className="mr-2 w-4 h-4" />
-                      Download
-                    </Button>
-                  </a>
+                  <Button size="sm" type="button" onClick={() => void handleProtectedDownload(activeDocument.downloadUrl)}>
+                    <Download className="mr-2 w-4 h-4" />
+                    Download
+                  </Button>
                 ) : (
                   <Button size="sm" disabled>
                     <Download className="mr-2 w-4 h-4" />

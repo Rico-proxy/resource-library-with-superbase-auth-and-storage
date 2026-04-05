@@ -1,4 +1,4 @@
-import { Download, Search, Upload } from 'lucide-react'
+import { Download, LogIn, Search, Upload } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import type { ResourceCategorySlug, ResourceDocument } from '@/types/resources'
 
@@ -24,23 +24,38 @@ export function LandingOverviewSection({ documentsByCategory, isLoading }: Landi
       <Card className="bg-card/95 border-border/70">
         <CardHeader>
           <CardTitle>How It Works</CardTitle>
-          <CardDescription>Simple actions for students to share and access study materials.</CardDescription>
+          <CardDescription>
+            Start by browsing documents, then sign in to download and upload resources.
+          </CardDescription>
         </CardHeader>
-        <CardContent className="gap-3 grid sm:grid-cols-3">
-          <article className="bg-background p-4 border border-border rounded-xl">
-            <Upload className="w-5 h-5 text-primary" />
-            <h3 className="mt-3 font-medium">Upload</h3>
-            <p className="mt-1 text-muted-foreground text-sm">Add textbooks, notes, and revision guides.</p>
-          </article>
+        <CardContent className="gap-3 grid sm:grid-cols-2">
           <article className="bg-background p-4 border border-border rounded-xl">
             <Search className="w-5 h-5 text-primary" />
-            <h3 className="mt-3 font-medium">Search</h3>
-            <p className="mt-1 text-muted-foreground text-sm">Find resources by course code or title.</p>
+            <h3 className="mt-3 font-medium">1. Browse Documents</h3>
+            <p className="mt-1 text-muted-foreground text-sm">
+              Open the Resources page and check books, notes, and past questions by category.
+            </p>
+          </article>
+          <article className="bg-background p-4 border border-border rounded-xl">
+            <LogIn className="w-5 h-5 text-primary" />
+            <h3 className="mt-3 font-medium">2. Create Account / Login</h3>
+            <p className="mt-1 text-muted-foreground text-sm">
+              When you find a file you need, sign up or log in to unlock downloads and preview access.
+            </p>
           </article>
           <article className="bg-background p-4 border border-border rounded-xl">
             <Download className="w-5 h-5 text-primary" />
-            <h3 className="mt-3 font-medium">Download</h3>
-            <p className="mt-1 text-muted-foreground text-sm">Get PDFs instantly for class and exam prep.</p>
+            <h3 className="mt-3 font-medium">3. Download and Study</h3>
+            <p className="mt-1 text-muted-foreground text-sm">
+              Download files you need for classes, assignments, and exam preparation.
+            </p>
+          </article>
+          <article className="bg-background p-4 border border-border rounded-xl">
+            <Upload className="w-5 h-5 text-primary" />
+            <h3 className="mt-3 font-medium">4. Upload to Help Others</h3>
+            <p className="mt-1 text-muted-foreground text-sm">
+              Share your own PDFs and notes so other students can learn from your materials.
+            </p>
           </article>
         </CardContent>
       </Card>

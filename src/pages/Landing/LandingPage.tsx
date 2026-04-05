@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { LandingBanner } from '@/components/pages/Landing/LandingBanner'
 import { LandingCategoriesSection } from '@/components/pages/Landing/LandingCategoriesSection'
+import { LandingFaqSection } from '@/components/pages/Landing/LandingFaqSection'
 import { LandingFeaturedResourcesSection } from '@/components/pages/Landing/LandingFeaturedResourcesSection'
 import { LandingOverviewSection } from '@/components/pages/Landing/LandingOverviewSection'
+import { LandingQuickActionsSection } from '@/components/pages/Landing/LandingQuickActionsSection'
+import { LandingTrustRowSection } from '@/components/pages/Landing/LandingTrustRowSection'
 import { LandingUploadCtaSection } from '@/components/pages/Landing/LandingUploadCtaSection'
 import { listCommunityDocumentsByCategory } from '@/lib/storage'
 import type { ResourceCategorySlug, ResourceDocument } from '@/types/resources'
@@ -50,15 +53,18 @@ export function LandingPage() {
 
   return (
     <div className="relative overflow-hidden">
-      <div className="hero-spotlight pointer-events-none absolute inset-0 -z-10" />
-      <div className="hero-grid pointer-events-none absolute inset-0 -z-10 opacity-40" />
+      <div className="-z-10 absolute inset-0 pointer-events-none hero-spotlight" />
+      <div className="-z-10 absolute inset-0 hero-grid opacity-40 pointer-events-none" />
 
       <LandingBanner />
 
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6 lg:px-8">
+      <main className="flex flex-col gap-[5rem] mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full max-w-6xl">
         <LandingOverviewSection documentsByCategory={documentsByCategory} isLoading={isLoadingDocuments} />
+        <LandingTrustRowSection />
+        <LandingQuickActionsSection />
         <LandingCategoriesSection />
         <LandingFeaturedResourcesSection documentsByCategory={documentsByCategory} isLoading={isLoadingDocuments} />
+        <LandingFaqSection />
         <LandingUploadCtaSection />
       </main>
     </div>

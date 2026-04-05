@@ -295,7 +295,7 @@ export function UploadHeroSection() {
               size="lg"
               onClick={handleOpenFilePicker}
               disabled={!isAuthenticated || isSubmitting}
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 w-full sm:w-auto max-w-full px-4 sm:px-8 text-sm sm:text-base"
             >
               Select documents to upload
               <Upload className="ml-2 w-4 h-4" />

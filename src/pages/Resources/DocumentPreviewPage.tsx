@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Download } from 'lucide-react'
+import { Download, Volume2, VolumeX } from 'lucide-react'
 import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { resourceCategories } from '@/data/resources/resources-data'
 import { listCommunityDocumentsByCategory } from '@/lib/storage'
 import { supabase } from '@/lib/supabase'
+import { useAccessibility } from '@/components/shared/AccessibilityProvider'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import type { ResourceCategorySlug, ResourceDocument } from '@/types/resources'
@@ -19,6 +20,7 @@ const emptyDocumentsByCategory: Record<ResourceCategorySlug, ResourceDocument[]>
 export function DocumentPreviewPage() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
+  const { speakText, stopSpeaking, isSpeaking } = useAccessibility()
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [documentsByCategory, setDocumentsByCategory] =
@@ -132,6 +134,22 @@ export function DocumentPreviewPage() {
     ? `${activeDocument.downloadUrl}#toolbar=1&navpanes=0&view=FitH`
     : null
 
+  const handleReadDocumentDetails = () => {
+    if (!activeDocument) return
+
+    speakText(
+      [
+        `${activeDocument.title}.`,
+        `Format: ${activeDocument.format}.`,
+        `Added by ${activeDocument.author}.`,
+        `Category: ${activeCategory?.name ?? 'General'}.`,
+        activeDocument.downloadUrl
+          ? 'A download button is available on this page.'
+          : 'A direct download is not currently available for this file.',
+      ].join(' '),
+    )
+  }
+
   return (
     <div id="top" className="relative overflow-hidden">
       <div className="hero-spotlight pointer-events-none absolute inset-0 -z-10" />
@@ -152,6 +170,10 @@ export function DocumentPreviewPage() {
               </p>
 
               <div className="gap-2 grid">
+                <Button type="button" variant="outline" onClick={isSpeaking ? stopSpeaking : handleReadDocumentDetails}>
+                  {isSpeaking ? <VolumeX className="mr-2 w-4 h-4" /> : <Volume2 className="mr-2 w-4 h-4" />}
+                  {isSpeaking ? 'Stop Read Aloud' : 'Read Details Aloud'}
+                </Button>
                 {activeDocument?.downloadUrl ? (
                   <Button
                     className="w-full"

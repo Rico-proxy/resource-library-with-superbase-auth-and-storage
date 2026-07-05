@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export function Footer() {
   return (
-    <footer className="bg-foreground border-foreground/20 border-t">
+    <footer data-read-aloud="site-footer" className="bg-foreground border-foreground/20 border-t">
       <div className="flex flex-col gap-6 mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full max-w-6xl">
         <div className="flex sm:flex-row flex-col justify-between items-start sm:items-center gap-4">
           <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">

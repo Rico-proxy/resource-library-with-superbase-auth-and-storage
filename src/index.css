@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Manrope:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  --font-family-base: 'Manrope', system-ui, sans-serif;
+  --font-family-reading: 'Atkinson Hyperlegible', 'Arial', sans-serif;
   --background: 52 73% 97%;
   --foreground: 158 30% 19%;
   --card: 0 0% 100%;
@@ -38,9 +40,78 @@
       radial-gradient(circle at 15% 18%, hsl(var(--secondary) / 0.44) 0%, transparent 38%),
       radial-gradient(circle at 88% 10%, hsl(var(--primary) / 0.20) 0%, transparent 32%),
       linear-gradient(165deg, hsl(var(--background)) 0%, hsl(53 50% 96%) 100%);
-    font-family: 'Manrope', system-ui, sans-serif;
+    font-family: var(--font-family-base);
     min-height: 100svh;
   }
+}
+
+html[data-reading-font='dyslexia'] body {
+  font-family: var(--font-family-reading);
+  letter-spacing: 0.02em;
+  word-spacing: 0.08em;
+}
+
+html[data-reading-font='dyslexia'] main p,
+html[data-reading-font='dyslexia'] main li,
+html[data-reading-font='dyslexia'] main h1,
+html[data-reading-font='dyslexia'] main h2,
+html[data-reading-font='dyslexia'] main h3,
+html[data-reading-font='dyslexia'] main label,
+html[data-reading-font='dyslexia'] main a,
+html[data-reading-font='dyslexia'] main button {
+  line-height: 1.75;
+}
+
+html[data-contrast='high'] {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 7%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 7%;
+  --primary: 0 0% 7%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 51 100% 60%;
+  --secondary-foreground: 0 0% 7%;
+  --muted: 0 0% 92%;
+  --muted-foreground: 0 0% 22%;
+  --accent: 51 100% 85%;
+  --accent-foreground: 0 0% 7%;
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 0 0% 7%;
+}
+
+html[data-contrast='warm'] {
+  --background: 40 55% 96%;
+  --foreground: 24 22% 17%;
+  --card: 36 57% 99%;
+  --card-foreground: 24 22% 17%;
+  --popover: 36 57% 99%;
+  --popover-foreground: 24 22% 17%;
+  --primary: 22 45% 24%;
+  --primary-foreground: 45 80% 96%;
+  --secondary: 40 75% 78%;
+  --secondary-foreground: 24 22% 17%;
+  --muted: 38 44% 88%;
+  --muted-foreground: 24 16% 32%;
+  --accent: 35 70% 86%;
+  --accent-foreground: 24 22% 17%;
+  --border: 30 25% 70%;
+  --input: 30 25% 70%;
+  --ring: 22 45% 24%;
+}
+
+html[data-contrast='high'] body,
+html[data-contrast='warm'] body {
+  background-image: none;
+}
+
+html[data-contrast='high'] .hero-grid,
+html[data-contrast='high'] .hero-spotlight,
+html[data-contrast='warm'] .hero-grid,
+html[data-contrast='warm'] .hero-spotlight {
+  display: none;
 }
 
 @layer utilities {

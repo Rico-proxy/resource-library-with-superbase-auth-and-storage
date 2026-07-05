@@ -3,7 +3,7 @@ import { UploadHeroSection } from '@/components/pages/Upload/UploadHeroSection'
 
 export function UploadPage() {
   return (
-    <div className="relative overflow-hidden">
+    <div data-read-aloud="page" className="relative overflow-hidden">
       <div className="hero-spotlight pointer-events-none absolute inset-0 -z-10" />
       <div className="hero-grid pointer-events-none absolute inset-0 -z-10 opacity-30" />
 

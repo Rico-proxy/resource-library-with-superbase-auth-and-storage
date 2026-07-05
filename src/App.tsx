@@ -10,11 +10,13 @@ import { DocumentPreviewPage } from '@/pages/Resources/DocumentPreviewPage'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { BaseLayout } from '@/layouts/BaseLayout'
 import { ScrollToTop } from '@/components/shared/ScrollToTop'
+import { AccessibilityPanel } from '@/components/shared/AccessibilityPanel'
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <AccessibilityPanel />
       <Routes>
         <Route element={<BaseLayout />}>
           <Route path="/" element={<LandingPage />} />

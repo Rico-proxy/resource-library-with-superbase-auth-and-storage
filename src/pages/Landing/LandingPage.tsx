@@ -52,7 +52,7 @@ export function LandingPage() {
   }, [])
 
   return (
-    <div className="relative overflow-hidden">
+    <div data-read-aloud="page" className="relative overflow-hidden">
       <div className="-z-10 absolute inset-0 pointer-events-none hero-spotlight" />
       <div className="-z-10 absolute inset-0 hero-grid opacity-40 pointer-events-none" />
 

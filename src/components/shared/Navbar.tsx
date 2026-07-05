@@ -122,7 +122,10 @@ export function Navbar() {
 
   return (
     <>
-      <header className="top-0 z-20 sticky bg-background/80 backdrop-blur-xl border-border/60 border-b">
+      <header
+        data-read-aloud="site-header"
+        className="top-0 z-20 sticky bg-background/80 backdrop-blur-xl border-border/60 border-b"
+      >
         <div className="flex justify-between items-center mx-auto px-4 sm:px-6 lg:px-8 py-3 w-full max-w-6xl">
           <Link to="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
             <div className="flex justify-center items-center bg-primary shadow-sm rounded-xl w-9 h-9 text-primary-foreground">
@@ -187,7 +190,10 @@ export function Navbar() {
         </div>
       </header>
 
-      <nav className="md:hidden right-0 bottom-0 left-0 z-30 fixed bg-background/90 backdrop-blur-xl border-border/70 border-t">
+      <nav
+        data-read-aloud="site-nav"
+        className="md:hidden right-0 bottom-0 left-0 z-30 fixed bg-background/90 backdrop-blur-xl border-border/70 border-t"
+      >
         <div className="gap-1 grid grid-cols-4 mx-auto px-3 py-2 w-full max-w-lg">
           <NavLink to="/" end className={mobileNavLinkClass}>
             <FiHome className="w-4 h-4" />

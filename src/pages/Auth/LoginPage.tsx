@@ -59,7 +59,10 @@ export function LoginPage() {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-foreground/75 via-foreground/55 to-foreground/35" />
 
-      <div className="z-10 relative flex items-center mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full max-w-7xl min-h-svh">
+      <main
+        data-read-aloud="auth-page"
+        className="z-10 relative flex items-center mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full max-w-7xl min-h-svh"
+      >
         <Card
           className="shadow-2xl backdrop-blur-md w-full max-w-md text-primary-foreground"
           style={glassCardStyle}
@@ -181,7 +184,7 @@ export function LoginPage() {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

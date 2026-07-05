@@ -73,7 +73,10 @@ export function ResetPasswordPage() {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-foreground/75 via-foreground/55 to-foreground/35" />
 
-      <div className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl items-center px-4 py-10 sm:px-6 lg:px-8">
+      <main
+        data-read-aloud="auth-page"
+        className="relative z-10 mx-auto flex min-h-svh w-full max-w-7xl items-center px-4 py-10 sm:px-6 lg:px-8"
+      >
         <Card
           className="w-full max-w-md text-primary-foreground shadow-2xl backdrop-blur-md"
           style={glassCardStyle}
@@ -150,7 +153,7 @@ export function ResetPasswordPage() {
             </form>
           </CardContent>
         </Card>
-      </div>
+      </main>
     </div>
   )
 }
